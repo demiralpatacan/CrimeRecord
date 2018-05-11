@@ -4,11 +4,11 @@ Relational Database Model of Criminal Record Management System
 May 2018
 Author: Atacan Demiralp
 
-## ABSTRACT
+# ABSTRACT
 
 Crime is one of the most significant problems, keeping evolving, all around the world. Crime can be controlled by understanding the reason behind it. In order to do that, crime should be well-recorded, analyzed, and ended up with effective solutions in terms of the analysis output. In this study, a relational database design for criminal record management system is presented in order to store crime information to be analyzed.
 
-## INTRODUCTION
+# INTRODUCTION
 
 Criminal Record Management System is a web software which provides service for reporting crimes, cases, criminals, and related details to help the national security units, such as Police. It is designed to
 1. Provide a crime management tool easily accessible by everybody online
@@ -22,13 +22,13 @@ Police can add information into the system when there exists a First Information
 
 The software works as client-server model. User (client) who has privilege to access the server, can view the information already stored, add new information, and update the information according to the privilege level. The server side contains the database which is the all information about crime. This study covers how to model the relational database to be communicated with the software. The client-side implementation, UI design, and  server-side implementation are not covered. The overall aim is to prototype the relational database system.
 
-## IT SYSTEM OVERVIEW
+# IT SYSTEM OVERVIEW
 
-# Client-Server Model
+## Client-Server Model
 
 ![client-server model](src/client-server.png)
 
-# User Interface
+## User Interface
 
 - A login page to access to the server
 - A search page which allows searches by FIR no, case no, and criminal name
@@ -36,16 +36,16 @@ The software works as client-server model. User (client) who has privilege to ac
 - One quick report button to report everything about a case
 - Responsive interface design
 
-# Hardware
+## Hardware
 
 Computers, smartphones, tablets
 
-# Software
+## Software
 
 - Any browser, also ported as mobile apps for IOS and Android
 - SQL Server 2017 for database
 
-# Entities
+## Entities
 
 - **Case:** The issue to be investigated by the police, and resolved by the court
 - **Crime:** The offense to be punished by law
@@ -56,7 +56,7 @@ Computers, smartphones, tablets
 - **FIR:** First Information Report, written by the police after they gather information from the petitioner about the criminal case
 - **Investigation Officer:** The police officer who makes investigation on the case
 
-# Attributes
+## Attributes
 
 ### Case
 - **Case ID:** Each case has a unique case ID
