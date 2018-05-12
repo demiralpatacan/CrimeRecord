@@ -155,3 +155,61 @@ Anybody who know about the crime, saw the offence, and wants to report it to the
 - **Last Name:** Last name of the officer
 - **Rank:** Rank of the officer
 
+## Relations Between Entities
+
+### FIR - Petitioner
+
+- FIR is filed by petitioner.
+- One FIR has to be filed by one and only one petitioner. Unknown petitioner is not acceptable to file the report. So, one petitioner is necessary for an FIR.
+- One FIR is necessary to record crime and start investigation.
+- One petitioner can file  more than one FIRs.
+
+There is **mandatory one to mandatory many** relation between FIR and petitioner.
+
+### FIR - Victim
+
+- FIR is filed for  suffered victim.
+- There can be one or many victims for one FIR. One victim is necessary for an FIR.
+- A victim can be suffered from multiple incidents of different FIRs.
+- A victim has to have a necessary FIR.
+
+There is **mandatory many to mandatory many** relation between FIR and victim.
+
+### FIR - Accused
+
+- FIR is filed against accused.
+- One FIR can point more than one accused. However, an accused can be unknown.
+- More than one FIRs can point one accused, and one accused is always pointed by at least one FIR.
+
+There is **mandatory many to optional many** relation between FIR and accused.
+
+### FIR - Crime
+
+- FIR is filed because of an incident or crime.
+- One FIR can include necessarily at least one crime.
+- One crime can be pointed by one and only one FIR.
+
+There is **mandatory one to mandatory many** relation between FIR and crime.
+
+### FIR - Case
+
+- After FIR is written, case begins to be investigated.
+- Police decides whether and incident is investigated. An incident might be not serious enough to be investigated. The complaint might not be against law.
+- If an incident worths to be investigated, then police opens investigation case.
+
+There is **mandatory one to optional one** relation between FIR and case.
+
+### Case - Investigation Officer
+
+- One case is investigated by one and only one investigation officer.
+- An investigation officer can make investigation on more than one cases.
+- An investigation officer has to make at least one investigation.
+
+There is **mandatory one to mandatory many** relation between case and investigation officer.
+
+###Accused - Wanted
+
+- Wanted is always an accused.
+- An accused may not be wanted.
+
+There is **mandatory one to optional one** relation between accused and wanted.
