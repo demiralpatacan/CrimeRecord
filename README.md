@@ -207,7 +207,7 @@ There is **mandatory one to optional one** relation between FIR and case.
 
 There is **mandatory one to mandatory many** relation between case and investigation officer.
 
-###Accused - Wanted
+### Accused - Wanted
 
 - Wanted is always an accused.
 - An accused may not be wanted.
