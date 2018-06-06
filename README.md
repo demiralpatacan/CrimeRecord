@@ -8,7 +8,7 @@ Author: Atacan Demiralp
 
 Crime is one of the most significant problems, keeping evolving, all around the world. Crime can be controlled by understanding the reason behind it. In order to do that, crime should be well-recorded, analyzed, and ended up with effective solutions in terms of the analysis output. In this study, a relational database design for criminal record management system is presented in order to store crime information to be analyzed.
 
-#1. INTRODUCTION
+# INTRODUCTION
 
 Criminal Record Management System is a web software which provides service for reporting crimes, cases, criminals, and related details to help the national security units, such as Police. It is designed to
 1. Provide a crime management tool easily accessible by everybody online
@@ -22,7 +22,7 @@ Police can add information into the system when there exists a First Information
 
 The software works as client-server model. User (client) who has privilege to access the server, can view the information already stored, add new information, and update the information according to the privilege level. The server side contains the database which is the all information about crime. This study covers how to model the relational database to be communicated with the software. The client-side implementation, UI design, and  server-side implementation are not covered. The overall aim is to prototype the relational database system.
 
-#2. IT SYSTEM OVERVIEW
+# IT SYSTEM OVERVIEW
 
 ## Client-Server Model
 
@@ -45,7 +45,7 @@ Computers, smartphones, tablets
 - Any browser, also ported as mobile apps for IOS and Android
 - SQL Server 2017 for database
 
-#3. ENTITIES & ATTRIBUTES
+# ENTITIES & ATTRIBUTES
 
 ## Entities
 
@@ -157,7 +157,7 @@ Anybody who know about the crime, saw the offence, and wants to report it to the
 - **Last Name:** Last name of the officer
 - **Rank:** Rank of the officer
 
-#4. RELATIONSHIPS BETWEEN ENTITIES
+# RELATIONSHIPS BETWEEN ENTITIES
 
 ### FIR - Petitioner
 
@@ -216,13 +216,13 @@ There is **mandatory one to mandatory many** relationship between case and inves
 
 There is **mandatory one to optional one** relationship between accused and wanted.
 
-#5. SET OF ENTITY OBJECTS
+# SET OF ENTITY OBJECTS
 
 Primary Key= Green, Foreign Key= Red, Real objects (R) , abstract objects (A)
 
 ![objects table](src/table_objects.png)
 
-#6. IDENTIFICATION TYPES OF REAL RELATIONSHIPS BETWEEN ENTITY OBJECTS
+# IDENTIFICATION TYPES OF REAL RELATIONSHIPS BETWEEN ENTITY OBJECTS
 
 Table 1: The matrix of real relationships before eliminating the relation M:M
 
@@ -232,10 +232,10 @@ Table 2: The matrix of real relationships after eliminating the relation M:M
 
 ![matrix2](src/matrix2.png)
 
-#7. CONCEPTUAL DATA MODEL
+# CONCEPTUAL DATA MODEL
 
 ![conceptual data model](src/Concept.png)
 
-#8. PHYSICAL DATA MODEL (EER DIAGRAM)
+# PHYSICAL DATA MODEL (EER DIAGRAM)
 
 ![physical data model](src/Physical.png)
