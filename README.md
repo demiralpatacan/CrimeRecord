@@ -8,7 +8,7 @@ Author: Atacan Demiralp
 
 Crime is one of the most significant problems, keeping evolving, all around the world. Crime can be controlled by understanding the reason behind it. In order to do that, crime should be well-recorded, analyzed, and ended up with effective solutions in terms of the analysis output. In this study, a relational database design for criminal record management system is presented in order to store crime information to be analyzed.
 
-# INTRODUCTION
+#1. INTRODUCTION
 
 Criminal Record Management System is a web software which provides service for reporting crimes, cases, criminals, and related details to help the national security units, such as Police. It is designed to
 1. Provide a crime management tool easily accessible by everybody online
@@ -22,7 +22,7 @@ Police can add information into the system when there exists a First Information
 
 The software works as client-server model. User (client) who has privilege to access the server, can view the information already stored, add new information, and update the information according to the privilege level. The server side contains the database which is the all information about crime. This study covers how to model the relational database to be communicated with the software. The client-side implementation, UI design, and  server-side implementation are not covered. The overall aim is to prototype the relational database system.
 
-# IT SYSTEM OVERVIEW
+#2. IT SYSTEM OVERVIEW
 
 ## Client-Server Model
 
@@ -44,6 +44,8 @@ Computers, smartphones, tablets
 
 - Any browser, also ported as mobile apps for IOS and Android
 - SQL Server 2017 for database
+
+#3. ENTITIES & ATTRIBUTES
 
 ## Entities
 
@@ -155,7 +157,7 @@ Anybody who know about the crime, saw the offence, and wants to report it to the
 - **Last Name:** Last name of the officer
 - **Rank:** Rank of the officer
 
-## Relations Between Entities
+#4. RELATIONSHIPS BETWEEN ENTITIES
 
 ### FIR - Petitioner
 
@@ -164,7 +166,7 @@ Anybody who know about the crime, saw the offence, and wants to report it to the
 - One FIR is necessary to record crime and start investigation.
 - One petitioner can file  more than one FIRs.
 
-There is **mandatory one to mandatory many** relation between FIR and petitioner.
+There is **mandatory one to mandatory many** relationship between FIR and petitioner.
 
 ### FIR - Victim
 
@@ -173,7 +175,7 @@ There is **mandatory one to mandatory many** relation between FIR and petitioner
 - A victim can be suffered from multiple incidents of different FIRs.
 - A victim has to have a necessary FIR.
 
-There is **mandatory many to mandatory many** relation between FIR and victim.
+There is **mandatory many to mandatory many** relationship between FIR and victim.
 
 ### FIR - Accused
 
@@ -181,7 +183,7 @@ There is **mandatory many to mandatory many** relation between FIR and victim.
 - One FIR can point more than one accused. However, an accused can be unknown.
 - More than one FIRs can point one accused, and one accused is always pointed by at least one FIR.
 
-There is **mandatory many to optional many** relation between FIR and accused.
+There is **mandatory many to optional many** relationship between FIR and accused.
 
 ### FIR - Crime
 
@@ -189,7 +191,7 @@ There is **mandatory many to optional many** relation between FIR and accused.
 - One FIR can include necessarily at least one crime.
 - One crime can be pointed by one and only one FIR.
 
-There is **mandatory one to mandatory many** relation between FIR and crime.
+There is **mandatory one to mandatory many** relationship between FIR and crime.
 
 ### FIR - Case
 
@@ -197,7 +199,7 @@ There is **mandatory one to mandatory many** relation between FIR and crime.
 - Police decides whether and incident is investigated. An incident might be not serious enough to be investigated. The complaint might not be against law.
 - If an incident worths to be investigated, then police opens investigation case.
 
-There is **mandatory one to optional one** relation between FIR and case.
+There is **mandatory one to optional one** relationship between FIR and case.
 
 ### Case - Investigation Officer
 
@@ -205,11 +207,35 @@ There is **mandatory one to optional one** relation between FIR and case.
 - An investigation officer can make investigation on more than one cases.
 - An investigation officer has to make at least one investigation.
 
-There is **mandatory one to mandatory many** relation between case and investigation officer.
+There is **mandatory one to mandatory many** relationship between case and investigation officer.
 
 ### Accused - Wanted
 
 - Wanted is always an accused.
 - An accused may not be wanted.
 
-There is **mandatory one to optional one** relation between accused and wanted.
+There is **mandatory one to optional one** relationship between accused and wanted.
+
+#5. SET OF ENTITY OBJECTS
+
+Primary Key= Green, Foreign Key= Red, Real objects (R) , abstract objects (A)
+
+![objects table](src/table_objects.png)
+
+#6. IDENTIFICATION TYPES OF REAL RELATIONSHIPS BETWEEN ENTITY OBJECTS
+
+Table 1: The matrix of real relationships before eliminating the relation M:M
+
+![matrix1](src/matrix1.png)
+
+Table 2: The matrix of real relationships after eliminating the relation M:M
+
+![matrix2](src/matrix2.png)
+
+#7. CONCEPTUAL DATA MODEL
+
+![conceptual data model](src/Concept.png)
+
+#8. PHYSICAL DATA MODEL (EER DIAGRAM)
+
+![physical data model](src/Physical.png)
