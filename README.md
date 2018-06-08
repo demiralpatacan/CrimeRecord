@@ -239,3 +239,17 @@ Table 2: The matrix of real relationships after eliminating the relation M:M
 # PHYSICAL DATA MODEL (EER DIAGRAM)
 
 ![physical data model](src/Physical.png)
+
+# FUNCTIONAL DEPENDENCIES
+
+- Table Name: FIR
+
+| FIR_No   | NID           | Date_Reported  | Time_Reported  | Detail                | 
+| ---------|:-------------:|:--------------:|:--------------:|:---------------------:|
+| 1        | 948364287     |   12.05.2018   |   12:11        | Unidentified victim.. |
+| 2        | 258127581     |   12.05.2018   |   12:12        | 15 year-old boy at..  |
+| 3        | 258127581     |   17.05.2018   |   115:18       | Bank robbery in tow.. |
+
+FIR_No ⟶ {NID, Date_Reported, Time_Reported, Detail}
+Normal Form: BCNF
+
