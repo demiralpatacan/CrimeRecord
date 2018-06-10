@@ -247,6 +247,7 @@ Table 2: The matrix of real relationships after eliminating the relation M:M
 ![table_FIR](src/table_FIR.png)
 
 FIR_No ⟶ {NID, Date_Reported, Time_Reported, Detail}
+
 Normal Form: BCNF
 
 
@@ -255,6 +256,7 @@ Normal Form: BCNF
 ![table_Petitioner](src/table_PET.png)
 
 NID ⟶ {First_Name, Middle_Name, Last_Name, Street_Name, Apartment_No, Door_No, City, District, Contact_No}
+
 Normal Form: BCNF
 
 
@@ -263,7 +265,9 @@ Normal Form: BCNF
 ![table_Victim](src/table_VIC.png)
 
 NID⟶ Victim_ID
+
 Victim_ID ⟶ {NID, First_Name, Middle_Name, Last_Name, Sex, Birth_Date, Nationality, Race, Education, Occupation}
+
 Normal Form: BCNF
 
 
@@ -272,7 +276,9 @@ Normal Form: BCNF
 ![table_Accused](src/table_ACC.png)
 
 NID ⟶ Accused_ID
+
 Accused_ID ⟶ {NID, First_Name, Middle_Name, Last_Name, Sex, Birth_Date, Nationality, Race, Education, Occupation, Status}
+
 Normal Form: BCNF
 
 
@@ -281,6 +287,7 @@ Normal Form: BCNF
 ![table_Crime](src/table_CRI.png)
 
 Crime_ID ⟶ {FIR_No, Crime_Name, Crime_Type, Date_Occured, Time_Occured, Street_Name, City, District, Latitude, Longitude}
+
 Normal Form: BCNF
 
 
@@ -289,7 +296,9 @@ Normal Form: BCNF
 ![table_Case](src/table_CAS.png)
 
 Case_ID ⟶ {Officer_ID, FIR_No, Law_No, Status, Detail}
+
 {Officer_ID, Law_No} ⟶ {Case_ID, FIR_No, Status, Detail}
+
 Normal Form: BCNF
 
 
@@ -298,6 +307,7 @@ Normal Form: BCNF
 ![table_Officer](src/table_OFF.png)
 
 Officer_ID ⟶ {First_Name, Middle_Name, Last_Name, Rank}
+
 Normal Form: BCNF
 
 
@@ -306,7 +316,9 @@ Normal Form: BCNF
 ![table_Wanted](src/table_WAN.png)
 
 Wanted_ID ⟶ {Accused_ID, Height, Eye_Color, Race, Scar, Tattoo, Alias, Most_Wanted, Detail}
+
 Accused_ID ⟶ Wanted_ID
+
 Normal Form: BCNF
 
 ## Intermediary Tables
@@ -317,6 +329,7 @@ Normal Form: BCNF
 ![table_Contains](src/table_CON.png)
 
 Contain_ID ⟶ {FIR_No, Victim_No}
+
 Normal Form: BCNF
 
 
@@ -326,6 +339,7 @@ Normal Form: BCNF
 ![table_Commits](src/table_COM.png)
 
 Commit_ID ⟶ {FIR_No, Accused_ID}
+
 Normal Form: BCNF
 
 ## About “Detail” Columns
