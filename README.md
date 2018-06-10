@@ -243,7 +243,6 @@ Table 2: The matrix of real relationships after eliminating the relation M:M
 # FUNCTIONAL DEPENDENCIES
 
 - Table Name: FIR
-
 ![table_FIR](src/table_FIR.png)
 
 FIR_No ⟶ {NID, Date_Reported, Time_Reported, Detail}
@@ -252,7 +251,6 @@ Normal Form: BCNF
 
 
 - Table Name: Petitioner
-
 ![table_Petitioner](src/table_PET.png)
 
 NID ⟶ {First_Name, Middle_Name, Last_Name, Street_Name, Apartment_No, Door_No, City, District, Contact_No}
@@ -261,7 +259,6 @@ Normal Form: BCNF
 
 
 - Table Name: Victim
-
 ![table_Victim](src/table_VIC.png)
 
 NID⟶ Victim_ID
@@ -272,7 +269,6 @@ Normal Form: BCNF
 
 
 - Table Name: Accused
-
 ![table_Accused](src/table_ACC.png)
 
 NID ⟶ Accused_ID
@@ -283,7 +279,6 @@ Normal Form: BCNF
 
 
 - Table Name: Crime
-
 ![table_Crime](src/table_CRI.png)
 
 Crime_ID ⟶ {FIR_No, Crime_Name, Crime_Type, Date_Occured, Time_Occured, Street_Name, City, District, Latitude, Longitude}
@@ -292,7 +287,6 @@ Normal Form: BCNF
 
 
 - Table Name: Case
-
 ![table_Case](src/table_CAS.png)
 
 Case_ID ⟶ {Officer_ID, FIR_No, Law_No, Status, Detail}
@@ -303,7 +297,6 @@ Normal Form: BCNF
 
 
 - Table Name: Officer
-
 ![table_Officer](src/table_OFF.png)
 
 Officer_ID ⟶ {First_Name, Middle_Name, Last_Name, Rank}
@@ -312,7 +305,6 @@ Normal Form: BCNF
 
 
 - Table Name: Wanted
-
 ![table_Wanted](src/table_WAN.png)
 
 Wanted_ID ⟶ {Accused_ID, Height, Eye_Color, Race, Scar, Tattoo, Alias, Most_Wanted, Detail}
@@ -325,7 +317,6 @@ Normal Form: BCNF
 
 - Table Name: Contains
 - Intermediary table between to solve M:M relation between FIR - Victim.
-
 ![table_Contains](src/table_CON.png)
 
 Contain_ID ⟶ {FIR_No, Victim_No}
@@ -335,7 +326,6 @@ Normal Form: BCNF
 
 - Table Name: Commits
 - Intermediary table between to solve M:M relation between FIR - Accused.
-
 ![table_Commits](src/table_COM.png)
 
 Commit_ID ⟶ {FIR_No, Accused_ID}
