@@ -244,12 +244,90 @@ Table 2: The matrix of real relationships after eliminating the relation M:M
 
 - Table Name: FIR
 
-| FIR_No   | NID           | Date_Reported  | Time_Reported  | Detail                | 
-| ---------|:-------------:|:--------------:|:--------------:|:---------------------:|
-| 1        | 948364287     |   12.05.2018   |   12:11        | Unidentified victim.. |
-| 2        | 258127581     |   12.05.2018   |   12:12        | 15 year-old boy at..  |
-| 3        | 258127581     |   17.05.2018   |   115:18       | Bank robbery in tow.. |
+![table_FIR](src/table_FIR.png)
 
 FIR_No ⟶ {NID, Date_Reported, Time_Reported, Detail}
 Normal Form: BCNF
 
+
+- Table Name: Petitioner
+
+![table_Petitioner](src/table_PET.png)
+
+NID ⟶ {First_Name, Middle_Name, Last_Name, Street_Name, Apartment_No, Door_No, City, District, Contact_No}
+Normal Form: BCNF
+
+
+- Table Name: Victim
+
+![table_Victim](src/table_VIC.png)
+
+NID⟶ Victim_ID
+Victim_ID ⟶ {NID, First_Name, Middle_Name, Last_Name, Sex, Birth_Date, Nationality, Race, Education, Occupation}
+Normal Form: BCNF
+
+
+- Table Name: Accused
+
+![table_Accused](src/table_ACC.png)
+
+NID ⟶ Accused_ID
+Accused_ID ⟶ {NID, First_Name, Middle_Name, Last_Name, Sex, Birth_Date, Nationality, Race, Education, Occupation, Status}
+Normal Form: BCNF
+
+
+- Table Name: Crime
+
+![table_Crime](src/table_CRI.png)
+
+Crime_ID ⟶ {FIR_No, Crime_Name, Crime_Type, Date_Occured, Time_Occured, Street_Name, City, District, Latitude, Longitude}
+Normal Form: BCNF
+
+
+- Table Name: Case
+
+![table_Case](src/table_CAS.png)
+
+Case_ID ⟶ {Officer_ID, FIR_No, Law_No, Status, Detail}
+{Officer_ID, Law_No} ⟶ {Case_ID, FIR_No, Status, Detail}
+Normal Form: BCNF
+
+
+- Table Name: Officer
+
+![table_Officer](src/table_OFF.png)
+
+Officer_ID ⟶ {First_Name, Middle_Name, Last_Name, Rank}
+Normal Form: BCNF
+
+
+- Table Name: Wanted
+
+![table_Wanted](src/table_WAN.png)
+
+Wanted_ID ⟶ {Accused_ID, Height, Eye_Color, Race, Scar, Tattoo, Alias, Most_Wanted, Detail}
+Accused_ID ⟶ Wanted_ID
+Normal Form: BCNF
+
+## Intermediary Tables
+
+- Table Name: Contains
+- Intermediary table between to solve M:M relation between FIR - Victim.
+
+![table_Contains](src/table_CON.png)
+
+Contain_ID ⟶ {FIR_No, Victim_No}
+Normal Form: BCNF
+
+
+- Table Name: Commits
+- Intermediary table between to solve M:M relation between FIR - Accused.
+
+![table_Commits](src/table_COM.png)
+
+Commit_ID ⟶ {FIR_No, Accused_ID}
+Normal Form: BCNF
+
+## About “Detail” Columns
+
+Although the “Detail” columns do not contain a single value and technically violate the normal forms, it is important to store data as comments in this specific domain area. It is assumed that the Detail columns are atomic and exist only to give additional information. The columns can be removed in order to get rid off normalization violation, however it is not realistic. Police need information also as comment which are single value as a whole information.
