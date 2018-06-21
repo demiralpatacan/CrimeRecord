@@ -116,7 +116,6 @@ Computers, smartphones, tablets
 ### Wanted
 
 - **Wanted ID:** Unique number for wanted in the list
-- **Accused ID:** What accused ID held by wanted (as foreign key)
 - **Alias:** Nickname of wanted
 - **Height:** Height of wanted
 - **Race:** Racial information of wanted
@@ -180,10 +179,10 @@ There is **mandatory many to mandatory many** relationship between FIR and victi
 ### FIR - Accused
 
 - FIR is filed against accused.
-- One FIR can point more than one accused. However, an accused can be unknown.
+- One FIR can point more than one accused.
 - More than one FIRs can point one accused, and one accused is always pointed by at least one FIR.
 
-There is **mandatory many to optional many** relationship between FIR and accused.
+There is **mandatory many to mandatory many** relationship between FIR and accused.
 
 ### FIR - Crime
 
@@ -248,7 +247,7 @@ Table 2: The matrix of real relationships after eliminating the relation M:M
 
 FIR_No ⟶ {NID, Date_Reported, Time_Reported, Detail}
 
-Normal Form: BCNF
+Normal Form: 3NF
 
 
 - Table Name: Petitioner
@@ -257,29 +256,31 @@ Normal Form: BCNF
 
 NID ⟶ {First_Name, Middle_Name, Last_Name, Street_Name, Apartment_No, Door_No, City, District, Contact_No}
 
-Normal Form: BCNF
+Normal Form: 3NF
+
 
 
 - Table Name: Victim
 
 ![table_Victim](src/table_VIC.png)
 
-NID⟶ Victim_ID
+Victim_ID is not same as the NID. One person can be victim in several times and cannot take the same Victim_ID twice or more. Victim_ID is generated while a FIR is reported.
 
 Victim_ID ⟶ {NID, First_Name, Middle_Name, Last_Name, Sex, Birth_Date, Nationality, Race, Education, Occupation}
 
-Normal Form: BCNF
+Normal Form: 3NF
+
 
 
 - Table Name: Accused
 
 ![table_Accused](src/table_ACC.png)
 
-NID ⟶ Accused_ID
+Accused_ID is not same as the NID. One person can be accused in several times and cannot take the same Accued_ID twice or more. Accused_ID is generated while a FIR is reported.
 
 Accused_ID ⟶ {NID, First_Name, Middle_Name, Last_Name, Sex, Birth_Date, Nationality, Race, Education, Occupation, Status}
 
-Normal Form: BCNF
+Normal Form: 3NF
 
 
 - Table Name: Crime
@@ -288,7 +289,7 @@ Normal Form: BCNF
 
 Crime_ID ⟶ {FIR_No, Crime_Name, Crime_Type, Date_Occured, Time_Occured, Street_Name, City, District, Latitude, Longitude}
 
-Normal Form: BCNF
+Normal Form: 3NF
 
 
 - Table Name: Case
@@ -299,7 +300,7 @@ Case_ID ⟶ {Officer_ID, FIR_No, Law_No, Status, Detail}
 
 {Officer_ID, Law_No} ⟶ {Case_ID, FIR_No, Status, Detail}
 
-Normal Form: BCNF
+Normal Form: 3NF
 
 
 - Table Name: Officer
@@ -308,7 +309,7 @@ Normal Form: BCNF
 
 Officer_ID ⟶ {First_Name, Middle_Name, Last_Name, Rank}
 
-Normal Form: BCNF
+Normal Form: 3NF
 
 
 - Table Name: Wanted
@@ -328,9 +329,12 @@ Normal Form: BCNF
 
 ![table_Contains](src/table_CON.png)
 
-Contain_ID ⟶ {FIR_No, Victim_No}
+Compound Key: {FIR_No, Victim_No}
 
-Normal Form: BCNF
+{FIR_No, Victim_No} ⟶ {FIR_No, Victim_No}
+
+Normal Form: 3NF
+
 
 
 - Table Name: Commits
@@ -338,10 +342,212 @@ Normal Form: BCNF
 
 ![table_Commits](src/table_COM.png)
 
-Commit_ID ⟶ {FIR_No, Accused_ID}
+Compound Key: {FIR_No, Accused_ID}
 
-Normal Form: BCNF
+{FIR_No, Accused_ID} ⟶ {FIR_No, Accused_ID}
+
+Normal Form: 3NF
+
 
 ## About “Detail” Columns
 
 Although the “Detail” columns do not contain a single value and technically violate the normal forms, it is important to store data as comments in this specific domain area. It is assumed that the Detail columns are atomic and exist only to give additional information. The columns can be removed in order to get rid off normalization violation, however it is not realistic. Police need information also as comment which are single value as a whole information.
+
+
+# DATA DEFINITION LANGUAGE (DDL)
+
+DDL consists of the statements used to Create, Alter, and Drop database objects.
+
+- Create Database:
+```SQL
+CREATE DATABASE CrimeRecords;
+```
+
+- Drop Database:
+```SQL
+DROP DATABASE CrimeRecords;
+```
+
+- Create Table:
+```SQL
+CREATE TABLE FIR(
+	FIR_NO INT,
+	Date_Reported DATE
+	Time_Reported TIME
+	Detail VARCHAR(200));
+
+```
+
+- Alter Table:
+```SQL
+ALTER TABLE Petitioner(
+	DROP District VARCHAR(45),
+	ADD State VARCHAR(45));
+```
+
+- Drop Table:
+```SQL
+DROP TABLE Petitioner;
+```
+
+- Truncate Table:
+```SQL
+TRUNCATE TABLE FIR;
+```
+(TRUNCATE TABLE statement removes all rows from a table.)
+
+# DATA MODIFICATION LANGUAGE (DML)
+
+DML consists of the statements used to Retrieve, Insert, Update, and Remove data within DB objects.
+
+- Retrieve
+```SQL
+SELECT First_Name, Last_Name, Contact_No
+FROM Petitioner
+```
+
+- Insert
+```SQL
+INSERT INTO Case (FIR_No, Law_No, Status, Officer_ID)
+VALUES (111847, 1746345, ‘Open’, 1010)
+```
+
+- Update
+```SQL
+UPDATE Victim 
+SET Sex=‘E’, Birt_Date= ‘12-09-1987’, Race= ‘Asian’, NID= 110680282
+WHERE Victim_ID= 20024
+```
+
+- Delete
+```SQL
+DELETE FROM Accused
+WHERE NID= 10020045 
+```
+
+# TYPICAL QUERIES
+
+- Print the full names and wanted IDs of the most wanteds.
+```SQL
+SELECT A.First_Name, A.Middle_Name, A.Last_Name, W.Wanted_ID
+FROM Wanted W
+JOIN Accused A ON A.Accused_ID = W.Accused_ID
+WHERE W.Most_Wanted = 1
+```
+
+- Print the national identity numbers and number of filed FIRs of petitioners who have filed more than 1 FIR in 2015.
+```SQL
+SELECT P.NID, Count (F.FIR_No)
+FROM Petitioner P
+JOIN FIR F ON F.NID = P.NID
+WHERE YEAR(F.Date_Reported) = 2015
+GROUP BY P.NID
+HAVING Count (F.FIR_No) > 1
+```
+
+- Print all the property crimes investigated by officer Carey Mahoney.
+```SQL
+SELECT *
+FROM Crime C
+JOIN FIR F ON F.FIR_No = C.FIR_No
+JOIN Case CA ON CA.FIR_No = F.FIR_No
+JOIN Officer OF ON OF.Officer_ID = CA.Officer_ID
+WHERE C.Crime_Type = “Property Crime” AND OF.First_Name = “Carey” AND OF.Last_Name = ‘Mahoney’
+```
+
+- Print the education information of accused ones who have been arrested for burglary.
+```SQL
+SELECT A.Education
+FROM Accused A
+JOIN Commits Co ON Co.Accused_ID = A.Accused_ID
+JOIN FIR F ON F.FIR_No = Co.FIR_No
+JOIN Crime CR ON CR.FIR_No = F.FIR_No
+WHERE CR.Crime_Name = “Burglary” AND A.Status = “Arrested”
+```
+
+- Print the number of crimes, grouped by crime type since 2015.
+```SQL
+SELECT CR.Crime_Type, Count(CR.Crime_ID)
+FROM Crime CR
+WHERE CR.Date_Occured > ‘01.01.2015’
+GROUP BY CR.Crime_Type
+```
+
+- Print the top 10 accused who have committed more crimes than last year.
+```SQL
+WITH Table2018 AS (
+SELECT TOP 10 A.Accused_ID, A.First_Name, A.Middle_Name, A.Last_Name, COUNT(CR.Crime_ID) AS CrimeNum2018
+FROM Accused A
+JOIN Commits Co ON Co.Accused_ID = A.Accused_ID
+JOIN FIR F ON F.FIR_No = Co.FIR_No
+JOIN Crime CR ON CR.FIR_No = F.FIR_No
+WHERE YEAR(CR.Date_Occured) = 2018
+GROUP BY A.Accused_ID, A.First_Name, A.Middle_Name, A.Last_Name
+ORDER BY CrimeNum2018 DESC),
+Table2017 AS (
+SELECT TOP 10 A.Accused_ID, A.First_Name, A.Middle_Name, A.Last_Name, COUNT(CR.Crime_ID) AS CrimeNum2017
+FROM Accused A
+JOIN Commits Co ON Co.Accused_ID = A.Accused_ID
+JOIN FIR F ON F.FIR_No = Co.FIR_No
+JOIN Crime CR ON CR.FIR_No = F.FIR_No
+WHERE YEAR(CR.Date_Occured) = 2017
+GROUP BY A.Accused_ID, A.First_Name, A.Middle_Name, A.Last_Name)
+SELECT *
+FROM Table2018
+WHERE CrimeNum2018 > (SELECT COUNT(CrimeNum2017) FROM Table2017)
+```
+
+# SIZE OF THE DATABASE
+
+INT:  4 Bytes,		DATE:	3 Bytes,		TIME:	4 Bytes,		VARCHAR(n):	n Bytes
+
+Table Petitioner:  327 Bytes,
+
+Table FIR:  208 Bytes,
+
+Table Victim:  327 Bytes,
+
+Table Accused:  372 Bytes,
+
+Table Wanted:  434 Bytes,
+
+Table Crime:  244 Bytes,
+
+Table Case:  253 Bytes,
+
+Table Officer:   184 Bytes
+
+In a district with average 800.000 population, the expected crime number is 5000 to 10.000 in a year. Each crime has minimum 1 FIR, 1 Accused, 1 Victim, 1 Petitioner, 1 Case, and 1 Officer.
+
+1 crime =~ 6 tables =~ 57 columns
+
+1 crime =~ 1915 Bytes
+
+100 crime =~ 1 wanted =~ 9 columns =~ 191934 Bytes =~ 187 KB
+
+5000 crime x index factor x overhead factor = 187 x 50 x 2 x 1.2 = 22440 KB =~ 21 MB
+
+10000 crime x index factor x overhead factor = 187 x 100 x 2 x 1.2 = 22440 KB =~ 42 MB
+
+Additional approximate records for 1:M relations =~ 10 - 20 MB
+
+Total =~ 30 MB - 60 MB
+
+In a country with average 10 Millions population, the expected crime number is 50.000 to 100.000 in a year.
+
+Total =~ 300 MB - 600 MB
+
+**In 3 years, the expected database size for a country with average 10 Millions population is 900 MB - 1.8 GB.**
+
+# CONCLUSION
+
+The relational model is a good choice for the domain, easy to implement and understand. The database holds huge amount of data. It is normalized by transforming M:M relations into 1:M and adding additional data objects. Data is meaningful and can be analyzed as more records are added and the database grows. It can show us,
+- How many crimes in total in a city, district or the whole country,
+- What the general profile of the criminals is in terms of age, occupation, and education,
+- What should be considered first in order to prevent crimes from happening,
+- What the major crime types and names are,
+- How many FIRs in average are reported in a month,
+- How many crimes in average are committed by one accused,
+- How the growth of number of crimes month by month and year by year,
+- Whether the solutions to decrease the number of crimes are effective according to the analysis.
+
