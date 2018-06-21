@@ -1,7 +1,7 @@
 # **Criminal Record Management System**
 Relational Database Model of Criminal Record Management System
 
-May 2018
+Last Change: June 2018
 Author: Atacan Demiralp
 
 # ABSTRACT
